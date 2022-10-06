@@ -921,7 +921,7 @@ class NgWhiteboardComponent {
     _reset() {
         this.undoStack = [];
         this.redoStack = [];
-        this.data = this._initialData;
+        this.data = JSON.parse(JSON.stringify(this._initialData));
         this.updateLocalStorage();
     }
     updateLocalStorage() {
