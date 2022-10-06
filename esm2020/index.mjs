@@ -1,0 +1,8 @@
+/*
+ * Public API Surface of ng-whiteboard
+ */
+export * from './lib/ng-whiteboard.service';
+export * from './lib/ng-whiteboard.component';
+export * from './lib/ng-whiteboard.module';
+export * from './lib/models';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi9wcm9qZWN0cy9uZy13aGl0ZWJvYXJkL3NyYy9pbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7R0FFRztBQUVILGNBQWMsNkJBQTZCLENBQUM7QUFDNUMsY0FBYywrQkFBK0IsQ0FBQztBQUM5QyxjQUFjLDRCQUE0QixDQUFDO0FBQzNDLGNBQWMsY0FBYyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBuZy13aGl0ZWJvYXJkXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvbmctd2hpdGVib2FyZC5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL25nLXdoaXRlYm9hcmQuY29tcG9uZW50JztcbmV4cG9ydCAqIGZyb20gJy4vbGliL25nLXdoaXRlYm9hcmQubW9kdWxlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL21vZGVscyc7XG4iXX0=
