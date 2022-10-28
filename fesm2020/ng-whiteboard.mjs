@@ -925,14 +925,14 @@ class NgWhiteboardComponent {
         this.updateLocalStorage();
     }
     _reset() {
-        console.log('DO RESET NOW', this._initialData);
         this.undoStack = [];
         this.redoStack = [];
-        // try {
-        //   this.data = JSON.parse(JSON.stringify(this._initialData));
-        // } catch(e) {
-        this.data = [];
-        // }
+        try {
+            this.data = JSON.parse(JSON.stringify(this._initialData));
+        }
+        catch (e) {
+            this.data = [];
+        }
         this.updateLocalStorage();
     }
     updateLocalStorage() {
