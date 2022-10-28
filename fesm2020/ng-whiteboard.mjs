@@ -301,11 +301,17 @@ class NgWhiteboardComponent {
         this._initObservables();
         this._initialData = JSON.parse(JSON.stringify(this.data));
         if (this.persistenceId) {
-            const stored = JSON.parse(localStorage.getItem(`whitebaord_${this.persistenceId}`) || 'null');
-            if (stored) {
-                this._data.next(stored.data || []);
-                this.undoStack = stored.undoStack || [];
-                this.redoStack = stored.redoStack || [];
+            try {
+                const stored = localStorage.getItem(`whiteboard_${this.persistenceId}`);
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    this._data.next(parsed.data || []);
+                    this.undoStack = parsed.undoStack || [];
+                    this.redoStack = parsed.redoStack || [];
+                }
+            }
+            catch (e) {
+                console.warn('Corrupt whiteboard data');
             }
         }
     }
@@ -408,9 +414,9 @@ class NgWhiteboardComponent {
         this._subscriptionList.push(this.whiteboardService.redoSvgMethodCalled$.subscribe(() => this.redoDraw()));
         this._subscriptionList.push(fromEvent(window, 'resize').subscribe(() => this.resizeScreen()));
         this._subscriptionList.push(this._data.pipe(skip(1)).subscribe((data) => {
-            let stored = JSON.parse(localStorage.getItem(`whitebaord_${this.persistenceId}`) || '');
+            const stored = JSON.parse(localStorage.getItem(`whiteboard_${this.persistenceId}`) || '{}');
             stored.data = data;
-            localStorage.setItem(`whitebaord_${this.persistenceId}`, JSON.stringify(stored));
+            localStorage.setItem(`whiteboard_${this.persistenceId}`, JSON.stringify(stored));
             this.dataChange.emit(data);
         }));
     }
@@ -919,14 +925,19 @@ class NgWhiteboardComponent {
         this.updateLocalStorage();
     }
     _reset() {
+        console.log('DO RESET NOW', this._initialData);
         this.undoStack = [];
         this.redoStack = [];
-        this.data = JSON.parse(JSON.stringify(this._initialData));
+        // try {
+        //   this.data = JSON.parse(JSON.stringify(this._initialData));
+        // } catch(e) {
+        this.data = [];
+        // }
         this.updateLocalStorage();
     }
     updateLocalStorage() {
         const storageObject = { data: this.data, undoStack: this.undoStack, redoStack: this.redoStack };
-        localStorage.setItem(`whitebaord_${this.persistenceId}`, JSON.stringify(storageObject));
+        localStorage.setItem(`whiteboard_${this.persistenceId}`, JSON.stringify(storageObject));
     }
     _generateNewElement(name) {
         const element = new WhiteboardElement(name, {
