@@ -301,7 +301,6 @@ class NgWhiteboardComponent {
         this._initObservables();
         this._initialData = JSON.parse(JSON.stringify(this.data));
         if (this.persistenceId) {
-            console.log('108', localStorage.getItem(`whitebaord_${this.persistenceId}`) || 'null');
             const stored = JSON.parse(localStorage.getItem(`whitebaord_${this.persistenceId}`) || 'null');
             if (stored) {
                 this._data.next(stored.data || []);
@@ -409,8 +408,7 @@ class NgWhiteboardComponent {
         this._subscriptionList.push(this.whiteboardService.redoSvgMethodCalled$.subscribe(() => this.redoDraw()));
         this._subscriptionList.push(fromEvent(window, 'resize').subscribe(() => this.resizeScreen()));
         this._subscriptionList.push(this._data.pipe(skip(1)).subscribe((data) => {
-            console.log('227', localStorage.getItem(`whitebaord_${this.persistenceId}`) || '{}');
-            let stored = JSON.parse(localStorage.getItem(`whitebaord_${this.persistenceId}`) || '{}');
+            let stored = JSON.parse(localStorage.getItem(`whitebaord_${this.persistenceId}`) || 'null');
             stored.data = data;
             localStorage.setItem(`whitebaord_${this.persistenceId}`, JSON.stringify(stored));
             this.dataChange.emit(data);
