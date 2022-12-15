@@ -408,7 +408,7 @@ class NgWhiteboardComponent {
         this._subscriptionList.push(this.whiteboardService.redoSvgMethodCalled$.subscribe(() => this.redoDraw()));
         this._subscriptionList.push(fromEvent(window, 'resize').subscribe(() => this.resizeScreen()));
         this._subscriptionList.push(this._data.pipe(skip(1)).subscribe((data) => {
-            let stored = JSON.parse(localStorage.getItem(`whitebaord_${this.persistenceId}`) || 'null');
+            let stored = JSON.parse(localStorage.getItem(`whitebaord_${this.persistenceId}`) || '[]');
             stored.data = data;
             localStorage.setItem(`whitebaord_${this.persistenceId}`, JSON.stringify(stored));
             this.dataChange.emit(data);
